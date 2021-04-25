@@ -7,6 +7,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String name;
 String email;
 String imageUrl;
+
 Future<String> signInWithGoogle() async {
   await Firebase.initializeApp();
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -20,14 +21,14 @@ Future<String> signInWithGoogle() async {
       await _auth.signInWithCredential(credential);
   final User user = authResult.user;
   if (user != null) {
-// Checking if email and name is null
+    // Checking if email and name is null
     assert(user.email != null);
     assert(user.displayName != null);
     assert(user.photoURL != null);
     name = user.displayName;
     email = user.email;
     imageUrl = user.photoURL;
-// Only taking the first part of the name, i.e., First Name
+    // Only taking the first part of the name, i.e., First Name
     if (name.contains(" ")) {
       name = name.substring(0, name.indexOf(" "));
     }
@@ -44,4 +45,34 @@ Future<String> signInWithGoogle() async {
 Future<void> signOutGoogle() async {
   await googleSignIn.signOut();
   print("User Signed Out");
+}
+
+Future<User> signUp(String email, String password) async {
+  await Firebase.initializeApp();
+  try {
+    UserCredential authResult = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    User firebaseUser = authResult.user;
+
+    return firebaseUser;
+  } catch (e) {
+    print(e.toString());
+    return null;
+  }
+}
+
+Future<User> signIn(String email, String password) async {
+  await Firebase.initializeApp();
+
+  UserCredential authResult =
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+  User user = authResult.user;
+
+  if (user != null) {
+// Checking if email and name is null
+    assert(user.email != null);
+    email = user.email;
+    return user;
+  }
+  return null;
 }
