@@ -8,9 +8,9 @@ HASIL SCREENSHOT
 
 <p><h3>Login With Email & Password</h3></p>
 
-![plot](./image/SignUp.jpeg)
+![plot](./image/signUp.jpeg)
 
-![plot](./image/SignIn.jpeg)
+![plot](./image/signIn.jpeg)
 
 ![plot](./image/hasilEmail.jpeg)
 
