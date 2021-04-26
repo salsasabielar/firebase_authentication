@@ -1,4 +1,14 @@
 # firebase_authentication
+HASIL SCREENSHOT
+<p><h3>Login With Google</h3></p>
+![plot](./image/loginGoogle.jpeg)
+![plot](./image/hasilGoogle.jpeg)
+
+<p><h3>Login With Email & Password</h3></p>
+
+![plot](./image/SignUp.jpeg)
+![plot](./image/SignIn.jpeg)
+![plot](./image/hasilEmail.jpeg)
 
 A new Flutter project.
 

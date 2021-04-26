@@ -23,10 +23,11 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign Up with Email"),
+        title: Text("Sign Up"),
       ),
       body: Container(
-        color: Colors.white,
+        padding: const EdgeInsets.all(8.0),
+        color: Colors.lightBlue[100],
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -83,35 +84,39 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Row(children: <Widget>[
-                  Expanded(
-                    child: RaisedButton(
-                      color: Theme.of(context).primaryColorDark,
-                      textColor: Theme.of(context).primaryColorLight,
-                      child: Text(
-                        'Sign Up',
-                        textScaleFactor: 1.5,
+                padding: EdgeInsets.fromLTRB(8, 40, 8, 20),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    child: Text(
+                      'Sign Up',
+                      textScaleFactor: 1.5,
+                      style: TextStyle(
+                        color: Colors.white70,
                       ),
-                      onPressed: () async {
-                        signUp(emailController.text, passwordController.text)
-                            .then(
-                          (result) {
-                            if (result != null) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return LoginPage();
-                                  },
-                                ),
-                              );
-                            }
-                          },
-                        );
-                      },
                     ),
+                    onPressed: () async {
+                      signUp(emailController.text, passwordController.text)
+                          .then(
+                        (result) {
+                          if (result != null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginPage();
+                                },
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
                   ),
-                ]),
+                ),
               ),
             ],
           ),

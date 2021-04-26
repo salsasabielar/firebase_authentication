@@ -47,18 +47,9 @@ Future<void> signOutGoogle() async {
   print("User Signed Out");
 }
 
-Future<User> signUp(String email, String password) async {
-  await Firebase.initializeApp();
-  try {
-    UserCredential authResult = await _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    User firebaseUser = authResult.user;
-
-    return firebaseUser;
-  } catch (e) {
-    print(e.toString());
-    return null;
-  }
+Future<void> signOutEmail() async {
+  FirebaseAuth.instance.signOut();
+  print("User Signed Out");
 }
 
 Future<User> signIn(String email, String password) async {
@@ -73,6 +64,37 @@ Future<User> signIn(String email, String password) async {
     assert(user.email != null);
     email = user.email;
     return user;
+  }
+  return null;
+}
+
+Future<String> signUp(String emailInput, String password) async {
+  await Firebase.initializeApp();
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: emailInput, password: password);
+
+    final User user = userCredential.user;
+
+    if (user != null) {
+      assert(user.email != null);
+      email = user.email;
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+      print('signInWithGoogle succeeded: $user');
+      return '$user';
+    }
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailInput, password: password);
+      return await signUp(emailInput, password);
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+      return null;
+    }
   }
   return null;
 }

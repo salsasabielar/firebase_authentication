@@ -1,3 +1,4 @@
+import 'package:firebase_authentication/register.dart';
 import 'package:firebase_authentication/second_screen.dart';
 import 'package:firebase_authentication/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.lightBlue,
+        padding: const EdgeInsets.all(8.0),
+        color: Colors.lightBlue[100],
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -82,69 +84,96 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        color: Theme.of(context).primaryColorDark,
-                        textColor: Theme.of(context).primaryColorLight,
-                        child: Text(
-                          'Sign Up',
-                          textScaleFactor: 1.5,
-                        ),
-                        onPressed: () async {
-                          signUp(emailController.text, passwordController.text)
-                              .then(
-                            (result) {
-                              if (result != null) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return SecondScreen();
-                                    },
-                                  ),
-                                );
-                              }
-                            },
-                          );
+                padding: EdgeInsets.fromLTRB(8, 20, 8, 20),
+                child: Container(
+                  width: 250,
+                  height: 50,
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    child: Text(
+                      'Sign In',
+                      textScaleFactor: 1.5,
+                      style: TextStyle(
+                        color: Colors.white70,
+                      ),
+                    ),
+                    onPressed: () async {
+                      signIn(emailController.text, passwordController.text)
+                          .then(
+                        (result) {
+                          if (result != null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SecondScreen();
+                                },
+                              ),
+                            );
+                          }
                         },
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Text(
+                      "OR",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              _signInButton(),
+              SizedBox(height: 20),
+              Container(
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Don’t have account ?",
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPage()));
+                      },
+                      child: Text(
+                        "Register here",
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Row(children: <Widget>[
-                  Expanded(
-                      child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
-                          child: Text(
-                            'Sign In',
-                            textScaleFactor: 1.5,
-                          ),
-                          onPressed: () async {
-                            signIn(emailController.text,
-                                    passwordController.text)
-                                .then(
-                              (result) {
-                                if (result != null) {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return SecondScreen();
-                                      },
-                                    ),
-                                  );
-                                }
-                              },
-                            );
-                          }))
-                ]),
-              ),
-              _signInButton(),
             ],
           ),
         ),
@@ -154,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _signInButton() {
     return OutlineButton(
-      splashColor: Colors.grey,
+      splashColor: Colors.blue,
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null) {
@@ -170,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
+      borderSide: BorderSide(color: Colors.blue),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
@@ -188,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                 'Sign in with Google',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.grey,
+                  color: Colors.blue,
                 ),
               ),
             )
