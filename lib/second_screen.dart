@@ -21,20 +21,13 @@ class SecondScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Text(
-                'EMAIL',
+                'LOGIN SUCCESS',
                 style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Colors.black54),
               ),
-              Text(
-                '$email',
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 40),
+              SizedBox(height: 70),
               RaisedButton(
                 onPressed: () {
                   signOutEmail();
