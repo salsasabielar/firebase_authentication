@@ -12,7 +12,7 @@ HASIL SCREENSHOT
 
 ![plot](./image/signIn.jpeg)
 
-![plot](./image/hasilEmail.jpeg)
+![plot](./image/hasilLoginEmail.jpeg)
 
 A new Flutter project.
 
